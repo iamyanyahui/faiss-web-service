@@ -102,3 +102,6 @@ ENV/
 /site
 
 # End of https://www.gitignore.io/api/python
+/faiss_index_files/ids_vectors.p
+/faiss_index_files/index
+/faiss_index_files/index.timestamp
