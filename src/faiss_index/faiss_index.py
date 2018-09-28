@@ -26,8 +26,11 @@ class FaissIndex(object):
         def neighbor_dict(id_, score):
             return { 'id': long(id_), 'score': float(score) }
 
-        def result_dict(id_, vector, neighbors):
-            return { 'id': id_, 'vector': vector.tolist(), 'neighbors': neighbors }
+        def result_dict(id_, neighbors):
+            return { 'id': id_, 'neighbors': neighbors }
+
+        # def result_dict(id_, vector, neighbors):
+        #     return { 'id': id_, 'vector': vector.tolist(), 'neighbors': neighbors }
 
         results = []
 
@@ -40,6 +43,6 @@ class FaissIndex(object):
             neighbors_scores = [(n, s) for n, s in neighbors_scores if n != id_ and n != -1]
             neighbors_scores = [neighbor_dict(n, s) for n, s in neighbors_scores]
 
-            results.append(result_dict(id_, vector, neighbors_scores))
-
+            # results.append(result_dict(id_, vector, neighbors_scores))
+            results.append(result_dict(id_, neighbors_scores))
         return results

@@ -1,15 +1,16 @@
 #!/bin/sh
 
-ROOT=$(realpath $(dirname ${0})/..)
+BASE_PATH=$(cd `dirname $0`; pwd)
+ROOT=${BASE_PATH}/..
 
-export FAISS_WEB_SERVICE_CONFIG=${FAISS_WEB_SERVICE_CONFIG:-${ROOT}/resources/faiss_index_urllib.py}
+export FAISS_WEB_SERVICE_CONFIG=${FAISS_WEB_SERVICE_CONFIG:-${ROOT}/faiss_web_service_config/faiss_index_local_file_test.py}
 
 development () {
   python ${ROOT}/src/app.py
 }
 
 production () {
-    mkdir -p /var/log/faiss_web_service
+    #mkdir -p /var/log/faiss_web_service
 
     uwsgi \
         --http :5000 \
@@ -18,11 +19,12 @@ production () {
         --master \
         --processes 4 \
         --threads 2 \
-        --metric-dir /var/log/faiss_web_service \
-        --logto /var/log/faiss_web_service/app.log
+        --metric-dir ${HOME}/SourceTree/faiss-web-service/env/service \
+        --logto ./env/log/app.log \
+        --safe-pidfile ${HOME}/SourceTree/faiss-web-service/env/master_project.pid
 }
 
 case "${1}" in
-   "production") production ;;
+   "prod") production ;;
    *) development ;;
 esac
