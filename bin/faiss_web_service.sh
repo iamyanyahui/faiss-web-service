@@ -28,3 +28,5 @@ case "${1}" in
    "prod") production ;;
    *) development ;;
 esac
+
+# 终止服务： ctrl+C 或者 uwsgi --stop master_project.pid
