@@ -19,9 +19,9 @@ production () {
         --master \
         --processes 4 \
         --threads 2 \
-        --metric-dir ${HOME}/SourceTree/faiss-web-service/env/service \
+        --metric-dir ${ROOT}/env/service \
         --logto ./env/log/app.log \
-        --safe-pidfile ${HOME}/SourceTree/faiss-web-service/env/master_project.pid
+        --safe-pidfile ${ROOT}/env/master_project.pid
 }
 
 case "${1}" in
